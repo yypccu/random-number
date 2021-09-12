@@ -3,7 +3,20 @@ version: 2.1
 orbs:
   android: circleci/android@1.0.3
 
+jobs:
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: circleci/android:api-29
+    steps:
+      - android/run-tests:
+          max-tries: 2 
+          no-output-timeout: '10m' 
+          retry-interval: 5 
+          test-command: ./gradlew test 
+          working-directory: . 
+
 workflows:
-  build-workflow:
+  example-workflow:
     jobs:
-      - android/build
+      - example-job
